@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useLanguage } from "@/app/providers";
 import { translations } from "@/i18n/translations";
-import profile from "@/data/profile";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -84,7 +83,7 @@ export function Experience() {
               {t.experience.expLabel}
             </h3>
             <div className="divide-y divide-border">
-              {profile.experiences.map((exp, i) => (
+              {t.experience.items.map((exp, i) => (
                 <div key={i} className="exp-item py-6 first:pt-0 last:pb-0">
                   <div className="flex items-start justify-between gap-4 mb-2">
                     <div>
@@ -113,7 +112,7 @@ export function Experience() {
               {t.experience.eduLabel}
             </h3>
             <div className="divide-y divide-border">
-              {profile.education.map((edu, i) => (
+              {t.experience.educationItems.map((edu, i) => (
                 <div key={i} className="edu-item py-6 first:pt-0 last:pb-0">
                   <div className="flex items-start justify-between gap-3 mb-1">
                     <p className="font-semibold text-text-primary leading-snug">
