@@ -79,20 +79,24 @@ export function CustomCursor() {
     /* ── Visibility ──────────────────────────────────────────────── */
     const onLeave = () => { wrap.style.opacity = "0"; };
     const onEnter = () => { wrap.style.opacity = "1"; };
+    /* Dipicu saat kursor masuk iframe (mis. prototype) — event mouse tidak sampai ke sini */
+    const onHide = () => { wrap.style.opacity = "0"; };
 
     window.addEventListener("mousemove", onMove);
     window.addEventListener("click", onClick);
     document.addEventListener("mouseleave", onLeave);
     document.addEventListener("mouseenter", onEnter);
+    document.addEventListener("cursor:hide", onHide);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("click", onClick);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
+      document.removeEventListener("cursor:hide", onHide);
       document.getElementById("cursor-hide")?.remove();
     };
-  }, [prefersReduced]);
+  }, [prefersReduced, isCoarse]);
 
   if (prefersReduced || isCoarse) return null;
 

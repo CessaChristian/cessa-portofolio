@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cessa — Software Engineering Student",
+  title: "Cessa — Software Engineering",
   description:
     "Portfolio of Cessa, an Informatics Engineering student at UKSW specializing in Software Engineering. Building web and mobile apps with TypeScript, Go, and more.",
   keywords: [

@@ -57,6 +57,9 @@ export function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
+    document.dispatchEvent(
+      new CustomEvent(menuOpen ? "lenis:stop" : "lenis:start")
+    );
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 

@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const EMAIL = "cessac728@gmail.com";
+const EMAIL = "cessachristian27@gmail.com";
 
 export function Contact() {
   const sectionRef = useRef<HTMLElement>(null);

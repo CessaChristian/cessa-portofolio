@@ -125,9 +125,6 @@ export function About() {
             <span className="px-3 py-1.5 rounded-full bg-surface-2">
               {profile.location}
             </span>
-            <span className="px-3 py-1.5 rounded-full bg-accent-light text-accent">
-              {t.about.tagOpen}
-            </span>
           </div>
         </div>
 

@@ -1,20 +1,5 @@
-import {
-  Code2,
-  Zap,
-  Globe,
-  Github,
-  Linkedin,
-  Mail,
-  Twitter,
-} from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-
-export interface Highlight {
-  title: string;
-  value: string;
-  icon: LucideIcon;
-  description: string;
-}
 
 export interface TechStack {
   label: string;
@@ -34,7 +19,6 @@ export interface Profile {
   university: string;
   specialization: string;
   shortBio: string;
-  highlights: Highlight[];
   techStacks: TechStack[];
   socials: Social[];
   cvUrl: string;
@@ -42,33 +26,12 @@ export interface Profile {
 
 const profile: Profile = {
   name: "Cessa",
-  role: "Software Engineering Student",
+  role: "Software Engineering",
   location: "Salatiga, Indonesia",
   university: "Universitas Kristen Satya Wacana",
   specialization: "Software Engineering",
   shortBio:
     "I build web and mobile applications — from backend APIs to polished UIs. Currently studying Informatics Engineering (Software Engineering) at UKSW and interning as IT Business Solution at Alfamidi.",
-
-  highlights: [
-    {
-      title: "Projects Built",
-      value: "5+",
-      icon: Code2,
-      description: "Full-stack web and mobile apps shipped",
-    },
-    {
-      title: "Languages",
-      value: "5",
-      icon: Globe,
-      description: "PHP, Golang, Python, Dart, TypeScript",
-    },
-    {
-      title: "Focus",
-      value: "SWE",
-      icon: Zap,
-      description: "Software engineering & system design",
-    },
-  ],
 
   techStacks: [
     {
@@ -106,13 +69,8 @@ const profile: Profile = {
     },
     {
       label: "Email",
-      url: "mailto:cessac728@gmail.com",
+      url: "mailto:cessachristian27@gmail.com",
       icon: Mail,
-    },
-    {
-      label: "Twitter",
-      url: "https://twitter.com/cessa",
-      icon: Twitter,
     },
   ],
 

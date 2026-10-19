@@ -116,6 +116,7 @@ export function Drawer({ open, onClose, title, children, className }: DrawerProp
 
         {/* Scrollable content */}
         <div
+          data-lenis-prevent
           className="overflow-y-auto flex-1 overscroll-contain"
           onWheel={(e) => e.stopPropagation()}
           onTouchMove={(e) => e.stopPropagation()}

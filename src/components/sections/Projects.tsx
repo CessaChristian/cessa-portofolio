@@ -13,6 +13,8 @@ import {
   Wrench,
   Lightbulb,
   Images,
+  Smartphone,
+  Loader2,
 } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -22,7 +24,7 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useLanguage } from "@/app/providers";
 import { translations } from "@/i18n/translations";
 import { cn } from "@/lib/utils";
-import projects, { Project } from "@/data/projects";
+import projects, { Project, PrototypeDemo } from "@/data/projects";
 import type { Lang } from "@/i18n/translations";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -177,6 +179,123 @@ function Lightbox({
   );
 }
 
+/* ─── Prototype viewer ─────────────────────────────────────────────── */
+const PHONE_W = 390;
+const PHONE_H = 844;
+const PHONE_RADIUS = 54;
+
+/* Skala frame HP agar muat di viewport (lg: panel info di samping, <lg: di atas) */
+function getPhoneScale() {
+  const isWide = window.innerWidth >= 1024;
+  const availH = window.innerHeight - 48 - (isWide ? 0 : 120);
+  const availW = window.innerWidth - 32;
+  return Math.min(1, availH / PHONE_H, availW / PHONE_W);
+}
+
+function PrototypeViewer({
+  prototype,
+  title,
+  t,
+  lang,
+  onClose,
+}: {
+  prototype: PrototypeDemo;
+  title: string;
+  t: typeof translations["en"];
+  lang: Lang;
+  onClose: () => void;
+}) {
+  const [scale, setScale] = useState(getPhoneScale);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { e.stopImmediatePropagation(); onClose(); }
+    };
+    const onResize = () => setScale(getPhoneScale());
+    window.addEventListener("keydown", handler, true);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("keydown", handler, true);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${title} — ${t.projects.prototypeTitle}`}
+    >
+      <div className="absolute inset-0 bg-black/92 backdrop-blur-md" />
+
+      <div
+        className="relative z-10 flex flex-col lg:flex-row items-center gap-4 lg:gap-12"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Info + kredensial demo */}
+        <aside className="w-full lg:w-64 text-white" style={{ maxWidth: PHONE_W }}>
+          <span className="font-mono text-xs text-white/50 uppercase tracking-widest">
+            {t.projects.prototypeTitle}
+          </span>
+          <p className="hidden lg:block mt-2 text-sm text-white/70 leading-relaxed">
+            {t.projects.prototypeNote}
+          </p>
+          <h3 className="hidden lg:block mt-6 mb-2 text-xs font-semibold text-white/90">
+            {t.projects.prototypeCredentials}
+          </h3>
+          <dl className="mt-2 lg:mt-0 flex flex-wrap lg:flex-col gap-1.5 lg:gap-2">
+            {prototype.credentials.map(({ label, value }) => (
+              <div
+                key={value}
+                className="flex items-baseline gap-2 lg:justify-between px-2.5 py-1 lg:py-1.5 rounded-lg bg-white/10 text-xs"
+              >
+                <dt className="text-white/60">{label[lang]}</dt>
+                <dd className="font-mono text-white">{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="hidden lg:block mt-6 text-xs text-white/50 leading-relaxed">
+            {t.projects.prototypeOfflineTip}
+          </p>
+        </aside>
+
+        {/* Frame HP — iframe berukuran asli, diskalakan agar muat */}
+        <div
+          className="relative shrink-0"
+          style={{ width: PHONE_W * scale, height: PHONE_H * scale }}
+          onMouseEnter={() => document.dispatchEvent(new CustomEvent("cursor:hide"))}
+        >
+          <div
+            className="absolute inset-0 flex items-center justify-center bg-zinc-900"
+            style={{ borderRadius: PHONE_RADIUS * scale }}
+          >
+            <Loader2 size={22} className="text-white/40 animate-spin" />
+          </div>
+          <iframe
+            src={prototype.src}
+            title={`${title} — ${t.projects.prototypeTitle}`}
+            sandbox="allow-scripts"
+            className="absolute top-0 left-0 border-0 bg-transparent"
+            style={{
+              width: PHONE_W,
+              height: PHONE_H,
+              transform: `scale(${scale})`,
+              transformOrigin: "top left",
+            }}
+          />
+        </div>
+      </div>
+
+      <button onClick={onClose} className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors" aria-label="Close">
+        <X size={20} />
+      </button>
+    </div>,
+    document.body
+  );
+}
+
 /* ─── Screenshot horizontal strip ──────────────────────────────────── */
 function ScreenshotStrip({
   screenshots,
@@ -189,6 +308,8 @@ function ScreenshotStrip({
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -222,7 +343,7 @@ function ScreenshotStrip({
             onClick={() => onOpen(i)}
             /* mobile: 82% lebar = 1 item + peek; sm+: 50%-6px = tepat 2 item */
             className="snap-start shrink-0 w-[82%] sm:w-[calc(50%-6px)] relative aspect-video rounded-xl overflow-hidden bg-surface-2 group cursor-zoom-in"
-            aria-label={`Lihat screenshot ${i + 1}`}
+            aria-label={`${t.projects.screenshots} ${i + 1}`}
           >
             <Image
               src={src}
@@ -254,7 +375,7 @@ function ScreenshotStrip({
         style={{ opacity: canScrollRight ? 1 : 0 }}
       >
         <ChevronRight size={11} className="animate-[pulse_1.5s_ease-in-out_infinite]" />
-        <span>geser untuk lihat lainnya</span>
+        <span>{t.projects.swipeHint}</span>
       </div>
     </div>
   );
@@ -264,6 +385,7 @@ function ScreenshotStrip({
 function ProjectDetailContent({ project, t, lang }: { project: Project; t: typeof translations["en"]; lang: Lang }) {
   const validScreenshots = project.screenshots.filter(Boolean);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [prototypeOpen, setPrototypeOpen] = useState(false);
 
   return (
     <div className="px-5 sm:px-6 py-5 sm:py-6 space-y-6">
@@ -272,6 +394,9 @@ function ProjectDetailContent({ project, t, lang }: { project: Project; t: typeo
       </div>
       <div className="flex flex-wrap items-center gap-3">
         <span className="flex items-center gap-1.5 text-sm text-muted font-mono"><Calendar size={14} />{project.year}</span>
+        {project.contextBadges?.[lang].map((label) => (
+          <Badge key={label} variant="muted">{label}</Badge>
+        ))}
         {project.demoUrl && (
           <Button href={project.demoUrl} external variant="outline" size="sm">
             <ExternalLink size={13} />{t.projects.liveDemoBtn}
@@ -280,6 +405,11 @@ function ProjectDetailContent({ project, t, lang }: { project: Project; t: typeo
         {project.repoUrl && (
           <Button href={project.repoUrl} external variant="ghost" size="sm">
             <Github size={13} />{t.projects.sourceBtn}
+          </Button>
+        )}
+        {project.prototype && (
+          <Button variant="outline" size="sm" onClick={() => setPrototypeOpen(true)}>
+            <Smartphone size={13} />{t.projects.tryPrototype}
           </Button>
         )}
       </div>
@@ -303,6 +433,16 @@ function ProjectDetailContent({ project, t, lang }: { project: Project; t: typeo
 
       {lightboxIndex !== null && (
         <Lightbox images={validScreenshots} index={lightboxIndex} alt={project.title} onClose={() => setLightboxIndex(null)} />
+      )}
+
+      {prototypeOpen && project.prototype && (
+        <PrototypeViewer
+          prototype={project.prototype}
+          title={project.title}
+          t={t}
+          lang={lang}
+          onClose={() => setPrototypeOpen(false)}
+        />
       )}
 
       <div>
@@ -398,6 +538,13 @@ function ProjectCard({
           </h3>
           <span className="font-mono text-xs text-muted shrink-0">{project.year}</span>
         </div>
+        {project.contextBadges && (
+          <div className="flex flex-wrap gap-1 mb-2">
+            {project.contextBadges[lang].map((label) => (
+              <Badge key={label} variant="accent" className="text-[10px] px-2">{label}</Badge>
+            ))}
+          </div>
+        )}
         <p className="text-muted text-xs leading-relaxed mb-3 line-clamp-2">
           {project.description[lang]}
         </p>

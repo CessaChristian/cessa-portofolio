@@ -1,10 +1,5 @@
 export type Lang = "en" | "id";
 
-interface HighlightItem {
-  title: string;
-  description: string;
-}
-
 interface ValueBullet {
   title: string;
   body: string;
@@ -54,9 +49,6 @@ interface Translations {
     downloadCv: string;
     scroll: string;
   };
-  highlights: {
-    items: [HighlightItem, HighlightItem, HighlightItem];
-  };
   projects: {
     eyebrow: string;
     heading: string;
@@ -66,8 +58,14 @@ interface Translations {
     liveDemoBtn: string;
     sourceBtn: string;
     screenshots: string;
+    swipeHint: string;
     whatIBuilt: string;
     challengesTitle: string;
+    tryPrototype: string;
+    prototypeTitle: string;
+    prototypeNote: string;
+    prototypeCredentials: string;
+    prototypeOfflineTip: string;
   };
   skills: {
     eyebrow: string;
@@ -82,7 +80,6 @@ interface Translations {
     para1: string;
     para2: string;
     para3: string;
-    tagOpen: string;
     valueBulletsHeading: string;
     bullets: [ValueBullet, ValueBullet, ValueBullet];
   };
@@ -120,40 +117,30 @@ export const translations: Record<Lang, Translations> = {
     hero: {
       greeting: "Hi, I'm",
       statusLine: "// Informatics Engineering student · interning at Alfamidi",
-      rolePrefix: "Software Engineering Student",
+      rolePrefix: "Software Engineering",
       roleSuffix: "building web & mobile apps",
-      bio: "I build web and mobile applications — from backend APIs to polished UIs. Currently studying Informatics Engineering (Software Engineering) at UKSW and interning as IT Business Solution at Alfamidi.",
+      bio: "Hi, I’m Cessa. I build web and mobile apps with a focus on the backend, like how data gets stored or what happens when a process fails halfway through. I still build the interface, but I’m usually more curious about what’s going on behind it. The best way I know to understand something is to build it.",
       viewProjects: "View Projects",
       downloadCv: "Download CV",
       scroll: "Scroll",
     },
-    highlights: {
-      items: [
-        {
-          title: "Projects Built",
-          description: "Full-stack web and mobile apps shipped",
-        },
-        {
-          title: "Languages",
-          description: "PHP, Golang, Python, Dart, TypeScript",
-        },
-        {
-          title: "Focus",
-          description: "Software engineering & system design",
-        },
-      ],
-    },
     projects: {
       eyebrow: "Work",
       heading: "Projects",
-      subtitle: "Things I've built — each one a real problem, real code.",
+      subtitle: "What I’ve built, from coursework and personal experiments to real-world needs.",
       featured: "Featured",
       live: "Live",
       liveDemoBtn: "Live Demo",
       sourceBtn: "Source",
       screenshots: "Screenshots",
+      swipeHint: "swipe to see more",
       whatIBuilt: "What I Built",
       challengesTitle: "Challenges & Lessons",
+      tryPrototype: "Try Prototype",
+      prototypeTitle: "Interactive prototype",
+      prototypeNote: "A clickable mockup of the app, running on dummy data. Nothing you do here is saved.",
+      prototypeCredentials: "Demo access",
+      prototypeOfflineTip: "Tap the Wi-Fi icon in the status bar to switch between offline and online mode.",
     },
     skills: {
       eyebrow: "Stack",
@@ -172,12 +159,11 @@ export const translations: Record<Lang, Translations> = {
       eyebrow: "About",
       heading: "A bit about me",
       para1:
-        "I'm Cessa — an Informatics Engineering (Software Engineering) student at UKSW, Salatiga, currently interning as IT Business Solution at Alfamidi. I enjoy building things from scratch and figuring out how all the pieces fit together.",
+        "Before I build a system, I’d rather ask first: who’s going to use it, and what’s making things hard for them. Only then do I look for the most sensible way to solve it.",
       para2:
         "Started with PHP and Laravel, then picked up Go when I needed something faster, and now I'm comfortable across the full stack — Next.js, TypeScript, Flutter, and everything in between.",
       para3:
         "Most of what I know came from just building things and breaking them. Side projects are how I explore, and every mistake usually turns into something useful.",
-      tagOpen: "Currently interning at Alfamidi",
       valueBulletsHeading: "How I work",
       bullets: [
         {
@@ -207,20 +193,6 @@ export const translations: Record<Lang, Translations> = {
           description:
             "Built a Project Management System for the IT division — a web app that lets every department track the status of their system requests to IT in real time. Built with Python Flask.",
         },
-        {
-          role: "Committee — LDKM 2025",
-          company: "Universitas Kristen Satya Wacana",
-          period: "2025",
-          description:
-            "Part of a 250-member committee spread across 7 divisions. Responsible for cross-division coordination and preparing all equipment needed to run the event smoothly.",
-        },
-        {
-          role: "Committee — Student Sports Week",
-          company: "Universitas Kristen Satya Wacana",
-          period: "2024 – 2025",
-          description:
-            "Involved in organizing a university-scale sports event for two consecutive years. Handled all operational needs to keep the event running from start to finish.",
-        },
       ],
       educationItems: [
         {
@@ -248,8 +220,7 @@ export const translations: Record<Lang, Translations> = {
       socialDescriptions: {
         GitHub: "github.com/CessaChristian",
         LinkedIn: "linkedin.com/in/cessachristian",
-        Email: "cessa@example.com",
-        Twitter: "@cessa",
+        Email: "cessachristian27@gmail.com",
       },
     },
     footer: {
@@ -272,41 +243,31 @@ export const translations: Record<Lang, Translations> = {
     },
     hero: {
       greeting: "Halo, saya",
-      statusLine: "// Mahasiswa Teknik Informatika UKSW · magang di Alfamidi",
-      rolePrefix: "Mahasiswa Teknik Informatika",
-      roleSuffix: "membangun aplikasi web & mobile",
-      bio: "Aku membangun aplikasi web dan mobile — dari backend API hingga UI yang rapi. Saat ini kuliah Teknik Informatika konsentrasi Software Engineering di UKSW dan sedang magang sebagai IT Business Solution di Alfamidi.",
+      statusLine: "// Mahasiswa Teknik Informatika UKSW.",
+      rolePrefix: "Software Engineer",
+      roleSuffix: "membangun website & aplikasi",
+      bio: "Halo, saya Cessa. Saya membuat aplikasi web dan mobile dengan fokus di sisi backend, misalnya bagaimana data disimpan atau apa yang terjadi kalau sebuah proses gagal di tengah jalan. Saya juga membuat frontend, tapi saya lebih sering penasaran dengan apa yang terjadi di baliknya. Bagi saya, cara terbaik memahami sesuatu adalah dengan membuatnya langsung.",
       viewProjects: "Lihat Proyek",
       downloadCv: "Unduh CV",
       scroll: "Gulir",
     },
-    highlights: {
-      items: [
-        {
-          title: "Proyek Dibangun",
-          description: "Aplikasi web dan mobile full-stack",
-        },
-        {
-          title: "Bahasa Pemrograman",
-          description: "PHP, Golang, Python, Dart, TypeScript",
-        },
-        {
-          title: "Fokus",
-          description: "Rekayasa perangkat lunak & desain sistem",
-        },
-      ],
-    },
     projects: {
       eyebrow: "Karya",
       heading: "Proyek",
-      subtitle: "Yang telah saya bangun — masalah nyata, kode nyata.",
+      subtitle: "Yang telah saya bangun, mulai dari tugas kuliah, eksplorasi pribadi, hingga kebutuhan nyata.",
       featured: "Unggulan",
       live: "Live",
       liveDemoBtn: "Demo Langsung",
       sourceBtn: "Kode",
       screenshots: "Tangkapan Layar",
+      swipeHint: "geser untuk lihat lainnya",
       whatIBuilt: "Yang Saya Bangun",
       challengesTitle: "Tantangan & Pelajaran",
+      tryPrototype: "Coba Prototype",
+      prototypeTitle: "Prototype interaktif",
+      prototypeNote: "Mockup aplikasi yang bisa diklik, berjalan dengan data dummy. Tidak ada yang tersimpan.",
+      prototypeCredentials: "Akses demo",
+      prototypeOfflineTip: "Ketuk ikon Wi-Fi di status bar untuk beralih antara mode offline dan online.",
     },
     skills: {
       eyebrow: "Stack",
@@ -325,12 +286,11 @@ export const translations: Record<Lang, Translations> = {
       eyebrow: "Tentang Saya",
       heading: "Sedikit tentang saya",
       para1:
-        "Saya Cessa — mahasiswa Teknik Informatika konsentrasi Software Engineering di UKSW, Salatiga, yang saat ini sedang magang sebagai IT Business Solution di Alfamidi. Senang membangun sesuatu dari nol dan mencari tahu bagaimana semua bagiannya bisa nyambung.",
+        "Sebelum membangun sebuah sistem, saya lebih suka bertanya dulu: siapa yang akan memakainya, dan apa yang menyulitkan mereka. Setelah itu, saya mencari cara yang paling masuk akal untuk menyelesaikannya.",
       para2:
-        "Mulai dari PHP dan Laravel, lanjut ke Go waktu butuh yang lebih cepat, dan sekarang sudah cukup nyaman di seluruh stack — Next.js, TypeScript, Flutter, dan yang lainnya.",
+        "Dalam proses belajar, saya tidak membatasi diri pada satu teknologi saja. Saya suka mencoba hal baru, tetapi bagian yang paling menarik bagi saya adalah ketika membangun sisi backend: merancang alur aplikasi, membuat API, dan memikirkan bagaimana database bisa bekerja dengan efisien.",
       para3:
-        "Sebagian besar yang aku tahu datang dari coba-coba dan salah. Proyek sampingan adalah cara aku belajar, dan tiap kesalahan biasanya jadi sesuatu yang berguna.",
-      tagOpen: "Sedang magang di Alfamidi",
+        "Saya banyak belajar melalui proses eksplorasi, membangun proyek sampingan, dan memperbaiki kesalahan yang muncul disaat membangun itu. Dari proses tersebut, saya memahami bahwa setiap kegagalan kecil bisa menjadi pengalaman yang berguna untuk berkembang.",
       valueBulletsHeading: "Cara saya belajar",
       bullets: [
         {
@@ -360,20 +320,6 @@ export const translations: Record<Lang, Translations> = {
           description:
             "Membangun Project Management System untuk divisi IT — website yang memungkinkan semua divisi perusahaan memantau status system request yang mereka ajukan ke divisi IT secara real-time. Dibangun menggunakan Python Flask.",
         },
-        {
-          role: "Panitia — LDKM 2025",
-          company: "Universitas Kristen Satya Wacana",
-          period: "2025",
-          description:
-            "Bagian dari kepanitiaan yang melibatkan 250 orang tersebar di 7 divisi. Bertanggung jawab atas koordinasi lintas divisi dan persiapan seluruh peralatan yang dibutuhkan untuk kelancaran kegiatan.",
-        },
-        {
-          role: "Panitia — Pekan Olahraga Mahasiswa",
-          company: "Universitas Kristen Satya Wacana",
-          period: "2024 – 2025",
-          description:
-            "Terlibat dalam penyelenggaraan event olahraga skala universitas selama dua tahun berturut-turut. Menyiapkan seluruh kebutuhan operasional agar event berjalan lancar dari awal hingga selesai.",
-        },
       ],
       educationItems: [
         {
@@ -401,8 +347,7 @@ export const translations: Record<Lang, Translations> = {
       socialDescriptions: {
         GitHub: "github.com/CessaChristian",
         LinkedIn: "linkedin.com/in/cessachristian",
-        Email: "cessa@example.com",
-        Twitter: "@cessa",
+        Email: "cessachristian27@gmail.com",
       },
     },
     footer: {

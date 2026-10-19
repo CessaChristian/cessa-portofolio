@@ -9,6 +9,7 @@ import {
 } from "react";
 import type { Lang } from "@/i18n/translations";
 import { CustomCursor } from "@/components/effects/CustomCursor";
+import { SmoothScroll } from "@/components/effects/SmoothScroll";
 
 /* ─── Theme Context ──────────────────────────────────────────────────── */
 type Theme = "light" | "dark";
@@ -126,6 +127,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <LanguageProvider>
       <ThemeProvider>
+        <SmoothScroll />
         <CustomCursor />
         {children}
       </ThemeProvider>

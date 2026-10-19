@@ -116,6 +116,7 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
 
         {/* Scrollable content */}
         <div
+          data-lenis-prevent
           className="overflow-y-auto flex-1 overscroll-contain"
           onWheel={(e) => e.stopPropagation()}
           onTouchMove={(e) => e.stopPropagation()}
