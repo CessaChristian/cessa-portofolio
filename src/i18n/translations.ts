@@ -210,9 +210,9 @@ export const translations: Record<Lang, Translations> = {
     contact: {
       eyebrow: "Contact",
       heading: "Get in touch",
-      collaborate: "Let's work together.",
+      collaborate: "Need something built?",
       description:
-        "Open to internships, collaborations, and interesting projects. Drop a message — I reply within a day.",
+        "I’m open to full-time roles and freelance projects, from web systems and APIs to apps that keep working offline. Tell me what’s getting in your way, and I’ll usually get back to you within a day.",
       preferredContact: "Preferred contact",
       sendEmail: "Send email",
       copy: "Copy",
@@ -337,9 +337,9 @@ export const translations: Record<Lang, Translations> = {
     contact: {
       eyebrow: "Kontak",
       heading: "Hubungi saya",
-      collaborate: "Mari berkolaborasi.",
+      collaborate: "Butuh sistem yang dibangun?",
       description:
-        "Terbuka untuk magang, kolaborasi, dan proyek menarik. Kirim pesan — saya membalas dalam sehari.",
+        "Saya terbuka untuk pekerjaan full-time maupun proyek freelance, mulai dari sistem web, API, sampai aplikasi yang tetap jalan tanpa internet. Ceritakan dulu apa yang sedang menyulitkan Anda, dan saya biasanya membalas dalam seharI.",
       preferredContact: "Kontak utama",
       sendEmail: "Kirim email",
       copy: "Salin",
